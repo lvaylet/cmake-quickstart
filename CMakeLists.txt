@@ -48,10 +48,22 @@ enable_testing()
 # Including header files here helps IDEs but is not required.
 # Output libname matches target name, with the usual extensions on your system.
 add_library(
-    MyLibrary
+    MaxValueLibrary
     SHARED
     max_value.h
     max_value.cc
+)
+# Declare a C++ test binary for this library...
+add_executable(
+    MaxValueTest
+    max_value_test.cc
+)
+# ... and link it to GoogleTest and the library.
+target_link_libraries(
+    MaxValueTest
+    PRIVATE
+    gtest_main
+    MaxValueLibrary
 )
 
 # Declare a standalone binary (output name matches target name)...
@@ -63,7 +75,7 @@ add_executable(
 target_link_libraries(
     HelloWorld
     PRIVATE
-    MyLibrary
+    MaxValueLibrary
 )
 
 # Declare a C++ test binary...
@@ -76,7 +88,7 @@ target_link_libraries(
     HelloTest
     PRIVATE
     gtest_main
-    MyLibrary
+    MaxValueLibrary
 )
 
 # Enable CMake's test runner to discover the tests included in the binary, using the GoogleTest CMake module.
